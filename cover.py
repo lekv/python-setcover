@@ -128,7 +128,7 @@ def checkOldFile(path):
   Ealier versions used to specify the number of vertices and the number of
   subsets on the first two lines of the file. Therefore we issue a warning,
   if the first two lines contain only one integer each."""
-  with file(path) as f:
+  with open(path) as f:
     # Check first two lines
     for i in range(2):
       # Get number of values
@@ -166,14 +166,14 @@ def main():
 
   # Load subsets from the specified file
   logging.info("loading file %s" % path)
-  with file(path) as f:
+  with open(path) as f:
     if oldFile and not forceNewFile:
       # Old files contain two header lines
       logging.info("Removing header lines from old format file.")
       maxID = f.readline().strip()
       noSets = f.readline().strip()
     for line in f.readlines():
-      subsets.append(map(int, line.split()))
+      subsets.append(list(map(int, line.split())))
 
   # Initialize a Solver with the subsets loaded from the input file
   solver = Solver(subsets)
