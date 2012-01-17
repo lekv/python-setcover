@@ -157,9 +157,7 @@ def main():
 
   # Issue a warning if the user does not decide to override.
   if oldFile and not forceNewFile:
-    logging.warn("Old file format detected. Please check the input file. If\
-        you want single vertex subsets on the first two lines, then run\
-        with --new-file.")
+    logging.warn("Old file format detected. Please check the input file. If you want single vertex subsets on the first two lines, then run with --new-file.")
 
   # The parsed subsets
   subsets = []
