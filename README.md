@@ -8,6 +8,12 @@ Features
  * Read input from a file
  * Computes **all** the solutions for a given input set of subsets
 
+Usage
+-----
+Run the program with the input file as the **first** parameter. Optionally you can force new format file behaviour by specifying `--new-file` as the **second** parameter. Example:
+
+    python cover.py input.txt
+
 Input file format
 -----------------
 The input file contains one subset description per line. Each element has to be a parseable integer value. For example, a simple input file could look like this:
