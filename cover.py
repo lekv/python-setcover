@@ -28,7 +28,7 @@ class Solver(object):
   the solver. Afterwards, the results can be obtained with getSolutions() and
   can be printed to the console with printSolutions()."""
 
-  def __init__(self, subsets = None):
+  def __init__(self, subsets = None, maxID = None):
     """Initalize the class.
 
     Keyword arguments:
@@ -36,6 +36,9 @@ class Solver(object):
     solutions."""
     # TODO: parse subsets from lists
     self.subsets = subsets
+
+    # MaxID for range verification
+    self.maxID = maxID
 
     # Development fixture
     if not self.subsets:
@@ -47,6 +50,15 @@ class Solver(object):
     self.superset = set()
     for s in self.subsets:
       self.superset = self.superset.union(s)
+
+    # Check, if superset contains all values in the range min-max
+    if self.maxID:
+      full_range = range(1, maxID+1)
+    else:
+      full_range = range(1, max(self.superset)+1)
+    if self.superset != set(full_range):
+      logging.warn("Missing elements in superset: %s" %
+          set(full_range).difference(self.superset))
 
     # List of all solutions
     self.solutions = []
@@ -165,16 +177,17 @@ def main():
   # Load subsets from the specified file
   logging.info("loading file %s" % path)
   with open(path) as f:
+    maxID = None
     if oldFile and not forceNewFile:
       # Old files contain two header lines
       logging.info("Removing header lines from old format file.")
-      maxID = f.readline().strip()
-      noSets = f.readline().strip()
+      maxID = int(f.readline().strip())
+      noSets = int(f.readline().strip())
     for line in f.readlines():
       subsets.append(list(map(int, line.split())))
 
   # Initialize a Solver with the subsets loaded from the input file
-  solver = Solver(subsets)
+  solver = Solver(subsets, maxID = maxID)
   # Run the solver
   solver.solve()
   # Output the results
