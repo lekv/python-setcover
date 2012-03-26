@@ -7,6 +7,7 @@ Features
 --------
  * Read input from a file
  * Computes **all** the solutions for a given input set of subsets
+ * Verifies, that **all** vertices from 1 to MAX are present in the subsets. If vertices are missing, they are output in list form inside a warning.
 
 Usage
 -----
@@ -34,6 +35,8 @@ Older versions used an input file format, where the first to lines contained the
     1 8
     2 3 9 10
     4 5 6 7 11 12 13 14
+
+Instead of the maximum value, the number of vertices in the first line will be used during verification of the completeness of the target superset.
 
 
 Caveats
